@@ -5,17 +5,20 @@
     "dev": "vinxi dev",
     "build": "vinxi build",
     "start": "vinxi start",
-    "version": "vinxi version"
+    "version": "vinxi version",
+    "postinstall": "bun scripts/fix-imports.js"
   },
   "dependencies": {
-    "@medusajs/medusa-js": "^6.1.9",
+    "@medusajs/js-sdk": "^2.7.0",
+    "@medusajs/types": "^2.7.0",
     "@solidjs/meta": "^0.29.4",
-    "@solidjs/router": "^0.14.1",
-    "@solidjs/start": "^1.0.6",
-    "solid-js": "^1.8.18",
-    "vinxi": "^0.4.1"
+    "@solidjs/router": "^0.15.0",
+    "@solidjs/start": "^1.1.0",
+    "solid-js": "^1.9.5",
+    "solid-motionone": "^1.0.3",
+    "vinxi": "^0.5.3"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22"
   }
 }
