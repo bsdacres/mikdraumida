@@ -1,6 +1,6 @@
 import { Meta, Title } from "@solidjs/meta";
 import { For, Show, createResource } from "solid-js";
-import { sdk } from "~/context/medusa";
+import { sdk } from "~/lib/medusa";
 import { ProductCard } from "./ProductCard";
 import component from "./styles/component.module.css"
 

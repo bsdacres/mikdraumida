@@ -1,8 +1,9 @@
 import { createEffect, createResource, createSignal, For, Match, onMount, Show, Switch } from "solid-js";
 import { Motion } from "solid-motionone";
 import component from "./styles/component.module.css"
-import { sdk } from "~/context/medusa";
+import { sdk } from "~/lib/medusa";
 import { formatPrice } from "./ProductCard";
+import { addToCart } from "./addToCart";
 
 
 const [thumbnail, setThumbnail] = createSignal<string | any>()
@@ -60,7 +61,12 @@ export default function ProductPage(props: any) {
                   </For>
                 </select>
               </Show>
-              <button>Add to cart</button>
+              <button
+                onclick={() => selectedVariant() && addToCart(selectedVariant()!)}
+                disabled={!selectedVariant()}
+              >
+                Add to cart
+              </button>
             </div>
             <div>
 
@@ -71,10 +77,10 @@ export default function ProductPage(props: any) {
               </div>
             <div class={component.product_info_tabs}>
               <Switch>
-                  <Match when={menu()==="description"}>
+                  <Match when={menu() === "description"}>
                     {products()?.subtitle}
                   </Match>
-                  <Match when={menu()==="lore"}>
+                  <Match when={menu() === "lore"}>
                     {products()?.description}
                   </Match>
               </Switch>
