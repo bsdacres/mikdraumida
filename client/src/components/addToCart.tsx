@@ -24,16 +24,14 @@ export const addToCart = (variant_id: string) => {
 }
 
 
-export const removeItem = (itemId: string) => {
+export const removeFromCart = async (itemId: string): Promise<any> => {
   const cartId = localStorage.getItem("cart_id")
 
   if (!cartId) {
-    return
+    return null
   }
 
-  sdk.store.cart.deleteLineItem(cartId, itemId)
-  .then(({ parent: cart }) => {
-    // use cart
-    console.log(cart)
-  })
+  const { parent: cart } = await sdk.store.cart.deleteLineItem(cartId, itemId)
+  console.log("Item removed from cart:", cart)
+  return cart
 }

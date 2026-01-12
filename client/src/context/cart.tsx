@@ -8,6 +8,7 @@ import type { StoreCart } from "@medusajs/types"
 export const CartContext = createContext<{
   cart: Partial<StoreCart>
   setCart: (value: Partial<StoreCart>) => void
+  refreshCart: () => void
 }>()
 
 export default function CartProviderClient(props: { children: any }) {
@@ -17,7 +18,7 @@ export default function CartProviderClient(props: { children: any }) {
     const cartId = localStorage.getItem("cart_id")
     const response = cartId
       ? await sdk.store.cart.retrieve(cartId)
-      : await sdk.store.cart.create({ region_id: "reg_01K2ZVZQHKQRYN8AD60MJFWSHG" })
+      : await sdk.store.cart.create({ region_id: "reg_01KE5WHXA2YAZ0PGRPNWEFDV5V" })
 
     const data = response.cart
     localStorage.setItem("cart_id", data.id)
@@ -25,8 +26,15 @@ export default function CartProviderClient(props: { children: any }) {
     console.log("Cart initialized:", data)
   })
 
+  const refreshCart = () => {
+    localStorage.removeItem("cart_id")
+    setCart({})
+  }
+
+
+
   return (
-    <CartContext.Provider value={{ cart, setCart }}>
+    <CartContext.Provider value={{ cart, setCart, refreshCart }}>
       {props.children}
     </CartContext.Provider>
   )

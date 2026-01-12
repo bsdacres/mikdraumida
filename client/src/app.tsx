@@ -5,6 +5,7 @@ import { Suspense } from "solid-js";
 import { clientOnly } from "@solidjs/start";
 import "./app.css";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 
 const CartProviderClient = clientOnly(() => import("./context/cart"));
@@ -22,7 +23,9 @@ export default function App() {
         root={props => (
           <MetaProvider>
             <Title>SolidStart - Basic</Title>
-           <Suspense>{props.children}</Suspense>
+            <Header />
+            <Suspense>{props.children}</Suspense>
+            <Footer />
           </MetaProvider>
         )}
         >

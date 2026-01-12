@@ -1,0 +1,22 @@
+{
+  "entries": [
+    {
+      "id": "auberon",
+      "title": "Auberon, Peccant Demiurge",
+      "item": "/lore/Auberon.jpeg",
+      "quote": "He had done it - the creation of his Dream, the ladder to apotheosis, yet there was no strength in this feat. His body ached as ichor swelled from his pores, lacquering itself upon his frame. The fluid swelled then hardened around his flesh turning ashen. Within this moment of metamorphosis, he heard a plethora of voices suddenly awaken in his mind - the forlorn in awe of his godhood. He examined his new form, now meters taller and more defined; he wondered if this was a semblance of the ideal form, or just an idea of what he valued as perfection nevertheless, he would continue further down the path of dread."
+    },
+    {
+      "id": "ohros",
+      "title": "Ohros, Autarchic Reverie",
+      "item": "/lore/Ohros.jpg",
+      "quote": "Where there is shadow, there is light for all that is unknown will be found and then tethered to it. Where Enkos's sphere relied on discovery, the cosmos have no use for discovery alone; a tool needs a purpose. Ohros, Great Reverie of Aether, would be such a purpose; for all that would be revealed would soon be tethered to it. It took a beautiful form, resembling a winged creature of light, with a crown and armor cast from starlight. It took upon the task of expansion, breathing life in the formless shadows. When they awakened from the dark, they found nothing, but an Autarch and Master."
+    },
+    {
+      "id": "enkos",
+      "title": "Enkos, Phantasm of the Abyss",
+      "item": "/lore/enkos.jpg",
+      "quote": "In the days of Yore, there was naught, but a sable wisp; a thought. A concept that even as an omniscient power, the singular cosmos still yearns for the gift of discovery. Thus Enkos, Great Phantasm of the Abyss, manifested itself; taking a form beyond our comprehension. It has taken its place among the Deep, beyond the Chthonic Shores, where It lies dreaming of what has yet to be revealed."
+    }
+  ]
+}

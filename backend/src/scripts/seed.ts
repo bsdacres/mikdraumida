@@ -17,8 +17,42 @@ import {
   createTaxRegionsWorkflow,
   linkSalesChannelsToApiKeyWorkflow,
   linkSalesChannelsToStockLocationWorkflow,
+  updateStoresStep,
   updateStoresWorkflow,
 } from "@medusajs/medusa/core-flows";
+import {
+  createWorkflow,
+  transform,
+  WorkflowResponse,
+} from "@medusajs/framework/workflows-sdk";
+
+const updateStoreCurrencies = createWorkflow(
+  "update-store-currencies",
+  (input: {
+    supported_currencies: { currency_code: string; is_default?: boolean }[];
+    store_id: string;
+  }) => {
+    const normalizedInput = transform({ input }, (data) => {
+      return {
+        selector: { id: data.input.store_id },
+        update: {
+          supported_currencies: data.input.supported_currencies.map(
+            (currency) => {
+              return {
+                currency_code: currency.currency_code,
+                is_default: currency.is_default ?? false,
+              };
+            }
+          ),
+        },
+      };
+    });
+
+    const stores = updateStoresStep(normalizedInput);
+
+    return new WorkflowResponse(stores);
+  }
+);
 
 export default async function seedDemoData({ container }: ExecArgs) {
   const logger = container.resolve(ContainerRegistrationKeys.LOGGER);
@@ -32,6 +66,21 @@ export default async function seedDemoData({ container }: ExecArgs) {
 
   logger.info("Seeding store data...");
   const [store] = await storeModuleService.listStores();
+  await updateStoresWorkflow(container).run({
+    input: {
+      selector: { id: store.id },
+      update: {
+        supported_locales: [
+          {
+            locale_code: "fr-FR"
+          },
+          {
+            locale_code: "es-ES"
+          }
+        ]
+      },
+    },
+  });
   let defaultSalesChannel = await salesChannelModuleService.listSalesChannels({
     name: "Default Sales Channel",
   });
@@ -52,19 +101,25 @@ export default async function seedDemoData({ container }: ExecArgs) {
     defaultSalesChannel = salesChannelResult;
   }
 
+  await updateStoreCurrencies(container).run({
+    input: {
+      store_id: store.id,
+      supported_currencies: [
+        {
+          currency_code: "eur",
+          is_default: true,
+        },
+        {
+          currency_code: "usd",
+        },
+      ],
+    },
+  });
+
   await updateStoresWorkflow(container).run({
     input: {
       selector: { id: store.id },
       update: {
-        supported_currencies: [
-          {
-            currency_code: "eur",
-            is_default: true,
-          },
-          {
-            currency_code: "usd",
-          },
-        ],
         default_sales_channel_id: defaultSalesChannel[0].id,
       },
     },
@@ -89,7 +144,7 @@ export default async function seedDemoData({ container }: ExecArgs) {
   await createTaxRegionsWorkflow(container).run({
     input: countries.map((country_code) => ({
       country_code,
-      provider_id: "tp_system"
+      provider_id: "tp_system",
     })),
   });
   logger.info("Finished seeding tax regions.");
@@ -113,6 +168,15 @@ export default async function seedDemoData({ container }: ExecArgs) {
   });
   const stockLocation = stockLocationResult[0];
 
+  await updateStoresWorkflow(container).run({
+    input: {
+      selector: { id: store.id },
+      update: {
+        default_location_id: stockLocation.id,
+      },
+    },
+  });
+
   await link.create({
     [Modules.STOCK_LOCATION]: {
       stock_location_id: stockLocation.id,
@@ -124,22 +188,22 @@ export default async function seedDemoData({ container }: ExecArgs) {
 
   logger.info("Seeding fulfillment data...");
   const shippingProfiles = await fulfillmentModuleService.listShippingProfiles({
-    type: "default"
-  })
-  let shippingProfile = shippingProfiles.length ? shippingProfiles[0] : null
+    type: "default",
+  });
+  let shippingProfile = shippingProfiles.length ? shippingProfiles[0] : null;
 
   if (!shippingProfile) {
     const { result: shippingProfileResult } =
-    await createShippingProfilesWorkflow(container).run({
-      input: {
-        data: [
-          {
-            name: "Default Shipping Profile",
-            type: "default",
-          },
-        ],
-      },
-    });
+      await createShippingProfilesWorkflow(container).run({
+        input: {
+          data: [
+            {
+              name: "Default Shipping Profile",
+              type: "default",
+            },
+          ],
+        },
+      });
     shippingProfile = shippingProfileResult[0];
   }
 
