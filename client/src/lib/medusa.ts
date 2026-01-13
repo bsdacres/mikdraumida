@@ -1,7 +1,7 @@
 import Medusa from "@medusajs/js-sdk";
 
 
-let MEDUSA_BACKEND_URL = "http://localhost:9000"
+let MEDUSA_BACKEND_URL = "https://mikdraumida.medusajs.app"
 
 
 export const sdk = new Medusa({

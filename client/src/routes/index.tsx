@@ -8,7 +8,7 @@ import HomePage from "../components/Home";
 
 export default function Home() {
   const ClientOnlyComp = clientOnly(() => import("../components/Home"));
-
+  
   return (
     <main>
       <HomePage />

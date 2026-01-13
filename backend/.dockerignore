@@ -1,0 +1,12 @@
+node_modules
+.git
+.gitignore
+.env
+.env.*
+*.log
+npm-debug.log*
+.medusa
+.cache
+dist
+coverage
+integration-tests
