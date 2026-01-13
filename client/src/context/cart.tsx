@@ -18,7 +18,7 @@ export default function CartProviderClient(props: { children: any }) {
     const cartId = localStorage.getItem("cart_id")
     const response = cartId
       ? await sdk.store.cart.retrieve(cartId)
-      : await sdk.store.cart.create({ region_id: "reg_01KE5WHXA2YAZ0PGRPNWEFDV5V" })
+      : await sdk.store.cart.create({ region_id: "reg_01KETDWS5M8MB95P66Q51V38BX" })
 
     const data = response.cart
     localStorage.setItem("cart_id", data.id)
