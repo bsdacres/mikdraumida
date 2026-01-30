@@ -22,7 +22,7 @@ export default function HomePage() {
     <main>
       <Title>Hello World</Title>
       <div class={styles.hero}>
-        <img class={styles.hero_img} src="https://www.maisonmargiela.com/dw/image/v2/AAPK_PRD/on/demandware.static/-/Library-Sites-margiela-shared/default/dw5b0f53c6/MM/040325Update/MM_HOMEPAGE_REFRESHES_DRESS-AGE_HERO_BANNER_02_DESKTOP.jpg?sw=3000" />
+        <img class={styles.hero_img} src="/hero.webp" />
         <div class={styles.hero_text_container}>
           <div class={styles.hero_title}>Cantus I: Abyssal Hymns</div>
           <div class={styles.hero_desc}> Forlorn, lost woven into perfection</div>

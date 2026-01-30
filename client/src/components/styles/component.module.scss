@@ -149,7 +149,7 @@
 
   img {
     width: 100%;
-    aspect-ratio: 4 / 5;
+    aspect-ratio: 1 / 1;
     object-fit: cover;
     transition: transform 0.5s ease, opacity 0.3s ease;
     opacity: 0.9;
@@ -345,7 +345,7 @@
 .product_preview {
   flex-shrink: 0;
   width: 88px;
-  height: 112px;
+  height: 88px;
   cursor: pointer;
   opacity: 0.6;
   transition: opacity 0.3s ease, border-color 0.3s ease;
@@ -356,7 +356,7 @@
   @media (min-width: 1024px) {
     width: 100%;
     height: auto;
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 1 / 1;
   }
 
   &:hover {
@@ -375,9 +375,9 @@
 .product_thumbnail {
   width: 100%;
   max-width: 560px;
-  aspect-ratio: 2 / 3;
+  aspect-ratio: 1 / 1;
   object-fit: cover;
-  object-position: top;
+  object-position: center;
   background-color: #1a1a20;
   border-radius: 1rem;
 
