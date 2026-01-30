@@ -26,7 +26,7 @@ export default function HomePage() {
         <div class={styles.hero_text_container}>
           <div class={styles.hero_title}>Cantus I: Abyssal Hymns</div>
           <div class={styles.hero_desc}> Forlorn, lost woven into perfection</div>
-          <a href="/index" class={styles.hero_link}>Explore More</a>
+          <a href="/store" class={styles.hero_link}>Explore More</a>
         </div>
       </div>
       <div class={styles.product_container}>
