@@ -17,28 +17,8 @@ export function ProductCard(props: any) {
   const [isAdding, setIsAdding] = createSignal(false);
 
   const handleQuickAdd = async (e: Event) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    if (!cartContext || !props.variants?.[0]?.id) return;
-
-    setIsAdding(true);
-    try {
-      const cartId = cartContext.cart?.id || localStorage.getItem("cart_id");
-      if (!cartId) return;
-
-      const response = await sdk.store.cart.createLineItem(cartId, {
-        variant_id: props.variants[0].id,
-        quantity: 1,
-      });
-
-      cartContext.setCart(response.cart);
-      navigate("/checkout");
-    } catch (error) {
-      console.error("Failed to add to cart:", error);
-    } finally {
-      setIsAdding(false);
-    }
+  
+    navigate(`/store/${props.handle}`)
   };
 
   return (
@@ -56,7 +36,6 @@ export function ProductCard(props: any) {
         <button
           class={styles.quick_add_btn}
           onClick={handleQuickAdd}
-          disabled={isAdding()}
         >
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
