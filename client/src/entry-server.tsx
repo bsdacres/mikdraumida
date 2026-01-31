@@ -20,7 +20,7 @@ export default createHandler(() => (
                 t.src=v;s=b.getElementsByTagName(e)[0];
                 s.parentNode.insertBefore(t,s)}(window, document,'script',
                 'https://connect.facebook.net/en_US/fbevents.js');
-                fbq('init', '1462735488401118');
+                fbq('init', '493952241965555');
                 fbq('track', 'PageView');
               `}
             />
