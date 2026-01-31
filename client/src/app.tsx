@@ -22,7 +22,7 @@ export default function App() {
       <Router
         root={props => (
           <MetaProvider>
-            <Title>SolidStart - Basic</Title>
+            <Title>Mik Draumida</Title>
             <Header />
             <Suspense>{props.children}</Suspense>
             <Footer />
