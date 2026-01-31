@@ -20,7 +20,7 @@ export default function HomePage() {
 
   return (
     <main>
-      <Title>Hello World</Title>
+      <Title>Mik draumida | Home</Title>
       <div class={styles.hero}>
         <img class={styles.hero_img} src="/hero.webp" />
         <div class={styles.hero_text_container}>
