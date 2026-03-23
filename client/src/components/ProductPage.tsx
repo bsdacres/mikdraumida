@@ -4,6 +4,7 @@ import styles from "./styles/component.module.scss";
 import { sdk } from "~/lib/medusa";
 import { formatPrice } from "./ProductCard";
 import { addToCart } from "./addToCart";
+import { useCart } from "~/context/cart";
 
 // Size order mapping for sorting
 const sizeOrder: Record<string, number> = {
@@ -24,6 +25,22 @@ const [thumbnail, setThumbnail] = createSignal<string | any>()
 const [activeTab, setActiveTab] = createSignal<string>("lore")
 
 export default function ProductPage(props: any) {
+  const cartContext = useCart();
+  const [isAddingToCart, setIsAddingToCart] = createSignal(false);
+
+  const handleAddToCart = async (variantId: string) => {
+    setIsAddingToCart(true);
+    try {
+      const updatedCart = await addToCart(variantId);
+      if (updatedCart && cartContext?.setCart) {
+        cartContext.setCart(updatedCart);
+      }
+    } catch (error) {
+      console.error("Failed to add item to cart:", error);
+    } finally {
+      setIsAddingToCart(false);
+    }
+  };
      
   async function fetchProducts (){
     const data = await sdk.store.product.list({
@@ -87,10 +104,10 @@ export default function ProductPage(props: any) {
               </Show>
               <button
                 class={styles.add_to_cart_btn}
-                onclick={() => selectedVariant() && addToCart(selectedVariant()!)}
-                disabled={!selectedVariant()}
+                onclick={() => selectedVariant() && handleAddToCart(selectedVariant()!)}
+                disabled={!selectedVariant() || isAddingToCart()}
               >
-                Add to Cart
+                {isAddingToCart() ? "Adding..." : "Add to Cart"}
               </button>
             </div>
 
